@@ -8,49 +8,143 @@
 Node.js + Next.js + Reactで構築されたインタラクティブなダッシュボードで、
 経営管理に必要なデータを集約し、分析可能な形で可視化します。
 
+## クイックスタート
+
+### Windows (PowerShell)
+
+```powershell
+# 1. プロジェクトディレクトリに移動
+cd C:\Users\堀哲也\datamartsample
+
+# 2. セットアップスクリプトを実行
+powershell -ExecutionPolicy Bypass -File quick-setup.ps1
+
+# 3. 開発環境で起動
+npm run dev
+```
+
+ブラウザで http://localhost:3000 にアクセス
+
+### macOS / Linux
+
+```bash
+# 1. プロジェクトディレクトリに移動
+cd ~/datamartsample
+
+# 2. ディレクトリ構造を作成
+mkdir -p src/{app/{api/{dashboard,segments,init-sample-data}},components,lib,types,__tests__}
+
+# 3. package.json などの設定ファイルをコピー
+# （別途ファイル配置ガイドを参照）
+
+# 4. npm install
+npm install
+
+# 5. 開発環境で起動
+npm run dev
+```
+
 ## プロジェクト構成
 
 ```
 ├── src/
-│   ├── app/              # Next.js App Router
-│   │   ├── api/          # API Routes
+│   ├── app/                    # Next.js App Router
+│   │   ├── api/                # API Routes
+│   │   │   ├── dashboard/
+│   │   │   ├── segments/
+│   │   │   └── init-sample-data/
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
 │   │   └── globals.css
-│   ├── components/       # React コンポーネント
-│   ├── lib/              # ユーティリティ関数
-│   │   ├── datamart.ts   # データマート処理
-│   │   ├── sampleData.ts # サンプルデータ生成
-│   │   └── store.ts      # Zustand ストア
-│   └── types/            # TypeScript型定義
-├── .streamlit/           # Streamlit設定
-├── public/               # 静的ファイル
-├── tests/                # テスト
-├── package.json          # Node.js依存関係
-├── tsconfig.json         # TypeScript設定
-├── next.config.js        # Next.js設定
-├── tailwind.config.ts    # Tailwind CSS設定
+│   ├── components/             # React コンポーネント
+│   │   ├── Dashboard.tsx
+│   │   ├── MetricsCard.tsx
+│   │   ├── SegmentAnalysis.tsx
+│   │   ├── SegmentDetail.tsx
+│   │   ├── DataTable.tsx
+│   │   └── InitializeButton.tsx
+│   ├── lib/                    # ユーティリティ関数
+│   │   ├── datamart.ts         # SQLiteデータマート
+│   │   ├── sampleData.ts       # サンプルデータ生成
+│   │   └── store.ts            # Zustand状態管理
+│   ├── types/                  # TypeScript型定義
+│   │   └── index.ts
+│   └── __tests__/              # テスト
+│       └── sampleData.test.ts
+├── public/                     # 静的ファイル
+├── package.json                # Node.js依存関係
+├── tsconfig.json               # TypeScript設定
+├── next.config.js              # Next.js設定
+├── tailwind.config.ts          # Tailwind CSS設定
+├── jest.config.js              # Jest設定
+├── postcss.config.js           # PostCSS設定
+├── .eslintrc.json              # ESLint設定
 └── README.md
 ```
 
 ## セットアップ
 
-### Node.js環境の準備
+### 方法1: PowerShellスクリプト（推奨 - Windows）
+
+```powershell
+powershell -ExecutionPolicy Bypass -File quick-setup.ps1
+```
+
+このスクリプトが実行される：
+- ✅ ディレクトリ構造を作成
+- ✅ package.json などの設定ファイルを生成
+- ✅ npm install を実行
+
+その後、ソースファイルを配置してください（以下のファイル配置ガイドを参照）
+
+### 方法2: 手動セットアップ
 
 ```bash
-# 依存関係をインストール
+# 1. Node.js をインストール（https://nodejs.org/）
+# 2. 依存関係をインストール
 npm install
+
+# 3. ソースファイルを配置（以下を参照）
+
+# 4. 開発環境で起動
+npm run dev
 ```
 
-### データベースの初期化
+## ファイル配置ガイド
 
-ダッシュボードで「サンプルデータを初期化」ボタンをクリックするか、
-以下のコマンドで初期化：
+`quick-setup.ps1` 実行後、以下のファイルを対応するディレクトリにコピーしてください。
+各ファイルの内容は、GitHubリポジトリまたはサーバー側から取得できます。
 
-```bash
-npm run build
-npm start
-```
+### src/types/index.ts
+TypeScript型定義ファイル
+
+### src/lib/datamart.ts
+SQLiteベースのデータマート実装
+
+### src/lib/sampleData.ts
+サンプルデータ生成関数
+
+### src/lib/store.ts
+Zustand状態管理ストア
+
+### src/components/ 内のファイル
+- Dashboard.tsx - メインダッシュボード
+- MetricsCard.tsx - KPI表示カード
+- SegmentAnalysis.tsx - セグメント別売上分析
+- SegmentDetail.tsx - セグメント詳細分析
+- DataTable.tsx - データテーブル
+- InitializeButton.tsx - サンプルデータ初期化ボタン
+
+### src/app/ 内のファイル
+- layout.tsx - ルートレイアウト
+- page.tsx - メインページ
+- globals.css - グローバルスタイル
+- api/dashboard/route.ts - ダッシュボードAPI
+- api/segments/route.ts - セグメント詳細API
+- api/init-sample-data/route.ts - サンプルデータ初期化API
+
+### src/__tests__/sampleData.test.ts
+サンプルデータのテストケース
 
 ## 使用方法
 
