@@ -52,3 +52,35 @@ export interface IncomeStatementLine {
   nameJa: string;
   amount: number;
 }
+
+/**
+ * データマート用型定義
+ */
+
+export interface DataMartField {
+  id: string;
+  name: string;
+  type: 'dimension' | 'measure';
+  category: string;
+  description: string;
+}
+
+export interface QueryCondition {
+  fieldId: string;
+  operator: '=' | '!=' | '>' | '<' | '>=' | '<=' | 'in' | 'contains';
+  value: string | number | string[] | number[];
+}
+
+export interface DataMartQuery {
+  selectedFields: string[];
+  conditions: QueryCondition[];
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface DataMartResult {
+  columns: Array<{ id: string; name: string; type: string }>;
+  rows: Record<string, any>[];
+  totalRows: number;
+  executedAt: Date;
+}
