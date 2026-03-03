@@ -28,6 +28,8 @@ pip install -r requirements.txt
 
 ## 使用方法
 
+### 1. セグメント損益計算書データマート（CLI）
+
 APIトークンを環境変数に設定：
 ```bash
 export MONEYFORWARD_API_TOKEN="your-api-token"
@@ -37,3 +39,36 @@ export MONEYFORWARD_API_TOKEN="your-api-token"
 ```bash
 python src/main.py --unit-id <unit_id>
 ```
+
+蓄積データを表示：
+```bash
+python src/main.py --unit-id <unit_id> --list
+```
+
+サマリーを表示：
+```bash
+python src/main.py --unit-id <unit_id> --summary
+```
+
+### 2. インタラクティブダッシュボード（Streamlit）
+
+ダッシュボードを起動：
+```bash
+streamlit run src/dashboard.py
+```
+
+ブラウザで http://localhost:8501 にアクセス
+
+#### ダッシュボードの機能
+
+- **📊 データ概要**: 蓄積データの統計情報
+- **💹 セグメント別売上分析**:
+  - セグメント別売上高の比較
+  - セグメント別利益率の分析
+- **🔍 セグメント別詳細分析**:
+  - 損益計算書フロー（ウォーターフォール図）
+  - 会社別売上比率（パイチャート）
+- **📋 詳細データ**:
+  - セグメント別サマリーテーブル
+  - 詳細データの閲覧・抽出
+- **✨ 機能説明**: このデータマートで実現できることの説明
