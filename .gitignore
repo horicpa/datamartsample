@@ -1,0 +1,15 @@
+*.pyc
+__pycache__/
+*.db
+*.db-journal
+.env
+.DS_Store
+.venv
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+*.log
